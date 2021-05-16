@@ -18,23 +18,38 @@ mock.onPost("/api/users/register").reply(200);
 
 const useStyles = makeStyles({
     root: {
-        minWidth: 275,
+        padding: 10,
+    },
+
+    buttonZaloguj: {
+        backgroundColor: '#489da8',
+        "&:hover": {
+        backgroundColor: '#347b85',
+        },
+        border: 0,
+        borderRadius: 3,
+        color: '#fff',
+        height: 48,
+        padding: '0 30px',
+      },
+
+    logo: {
+        width: 300,
+        height: 90,
+        marginLeft: '39%',
+        marginTop: '1%',
+    },
+
+    linkrejestracja: {
+        color: '#ce9f1f',
+        marginLeft: '5px',
 
     },
-    bullet: {
-        display: 'inline-block',
-        margin: '0 2px',
-        transform: 'scale(0.8)',
-    },
-    title: {
-        fontSize: 14,
-    },
-    pos: {
-        marginBottom: 12,
-        fontWeight: 400,
 
-
+    niemaszjeszczekonta: {
+        marginTop: '10px',
     },
+
 });
 
 export interface IRegisterUser {
@@ -136,7 +151,8 @@ const RegisterPage = () => {
 
     return (
         <>
-            <Box paddingTop={10}>
+        <img src="http://lapavlo.pl/wp-content/uploads/2021/05/logodenti.png" className={classes.logo} />
+            <Box paddingTop={2}>
                 <Container maxWidth="sm">
                     <>
                         <form onSubmit={handleRegister} autoComplete="off">
@@ -145,7 +161,7 @@ const RegisterPage = () => {
                                     <Typography variant="h5" component="h2">
                                         Zarejestruj się:
                                     </Typography>
-                                    <Typography className={classes.pos} color="textSecondary">
+                                    <Typography color="textSecondary">
                                         W celu rejstracji wprowadź wszystkie dane
                                     </Typography>
                                     <Grid container spacing={3}>
@@ -176,13 +192,13 @@ const RegisterPage = () => {
                                                        variant="outlined" value={phone} onChange={handlePhoneChange}/>
                                         </Grid>
                                     </Grid>
-                                    <Typography className={classes.pos} color="textSecondary">
+                                    <Typography className={classes.niemaszjeszczekonta} color="textSecondary">
                                         Jesteś już zarejestrowany? Zaloguj się tutaj:
-                                        <Link to={'/login'}> Logowanie </Link>
+                                        <Link to={'/login'} className={classes.linkrejestracja} >Logowanie </Link>
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
-                                    <Button variant="contained" color="primary" type={"submit"}>Zarejestruj się</Button>
+                                    <Button className={classes.buttonZaloguj} type={"submit"}>Zarejestruj się</Button>
                                 </CardActions>
                             </Card>
                         </form>

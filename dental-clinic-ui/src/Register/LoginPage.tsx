@@ -5,8 +5,9 @@ import CardContent from "@material-ui/core/CardContent";
 import Typography from "@material-ui/core/Typography";
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
-import {Alert, AlertTitle} from "@material-ui/lab";
+import {Alert, AlertTitle, Autocomplete} from "@material-ui/lab";
 import {makeStyles} from "@material-ui/core/styles";
+
 
 import {
     Link, useHistory
@@ -14,31 +15,61 @@ import {
 import RegisterPage from "./RegisterPage";
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
+import { pink } from "@material-ui/core/colors";
 
 export interface IuserLogged {
     mail: string,
     password: string
 }
 
+
+
+
 const useStyles = makeStyles({
     root: {
         minWidth: 275,
 
     },
-    bullet: {
-        display: 'inline-block',
-        margin: '0 2px',
-        transform: 'scale(0.8)',
+
+    
+    buttonZaloguj: {
+        backgroundColor: '#489da8',
+        "&:hover": {
+        backgroundColor: '#347b85',
+        },
+        border: 0,
+        borderRadius: 3,
+        color: '#fff',
+        height: 48,
+        padding: '0 30px',
+      },
+
+    logo: {
+        width: 300,
+        height: 90,
+        marginLeft: '39%',
+        marginTop: '1%',
     },
+
+    linkrejestracja: {
+        color: '#ce9f1f',
+        marginLeft: '5px',
+
+    },
+
+    niemaszjeszczekonta: {
+        marginTop: '10px',
+    },
+
     title: {
         fontSize: 14,
+
     },
     pos: {
         marginBottom: 12,
-        fontWeight: 400,
-
-
+        fontWeight: 100,
     },
+
 });
 
 const mock = new MockAdapter(axios);
@@ -102,39 +133,47 @@ const LoginPage = () => {
 
     return (
         <>
-            <Box paddingTop={10}>
+        <img src="http://lapavlo.pl/wp-content/uploads/2021/05/logodenti.png" className={classes.logo} />
+            <Box paddingTop={4}>
                 <Container maxWidth="sm">
                     <>
                         <form onSubmit={handleLogin} autoComplete="on">
                             <Card className={classes.root}>
                                 <CardContent>
 
-                                    <Typography className={classes.pos} color="textSecondary">
-                                        Aby się zalogowac wprowadź poprawne dane:
+                                    <Typography className={classes.pos}>
+                                        Aby się zalogować wprowadź poprawne dane:
                                     </Typography>
                                     <Grid container spacing={3}>
                                         <Grid item xs={12}>
                                             <TextField error={!!errors["mail"]} helperText={errors["mail"]}
                                                        type={"mail"} fullWidth={true} label="Adres e-mail"
                                                        variant="outlined" value={mail}
-                                                       onChange={handleMailChange}/>
+                                                       className="fieldColor"
+                                                       onChange={handleMailChange}
+                                                       id="outlined-basic"
+
+                                        
+                                                        
+                                                        />
                                         </Grid>
                                         <Grid item xs={12}>
                                             <TextField error={!!errors["password"]} helperText={errors["password"]}
                                                        type={"password"} fullWidth={true}
                                                        label="Hasło" variant="outlined" value={password}
-                                                       onChange={handlePasswordChange}/>
+                                                       onChange={handlePasswordChange}
+                                                       color="secondary" />
                                         </Grid>
 
                                     </Grid>
-                                    <Typography className={classes.pos} color="textSecondary">
-                                        Nie masz jeszcze konta ? Zarejestruj się tutaj:
-                                        <Link to={'/register'}> Rejestracja</Link>
+                                    <Typography className={classes.niemaszjeszczekonta} color="textSecondary">
+                                        Nie masz jeszcze konta? Zarejestruj się tutaj:
+                                        <Link to={'/register'} className={classes.linkrejestracja} >Rejestracja</Link>
                                     </Typography>
 
                                 </CardContent>
                                 <CardActions>
-                                    <Button variant="contained" color="primary" type={"submit"}>Zaloguj się</Button>
+                                    <Button className={classes.buttonZaloguj} type={"submit"}>Zaloguj się</Button>
                                 </CardActions>
                             </Card>
                         </form>
