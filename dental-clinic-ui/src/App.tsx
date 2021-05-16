@@ -19,7 +19,8 @@ const theme = createMuiTheme({
             '@global': {
                 body: {
                     width: "100%",
-                    height: "100%"
+                    height: "100%",
+                    backgroundColor: "#489da8",
                 },
                 html: {
                     width: "100%",
@@ -28,7 +29,7 @@ const theme = createMuiTheme({
                 "#root": {
                     width: "100%",
                     height: "100%",
-                    backgroundColor: "#f5f5f5"
+                    backgroundColor: "#489da8",
                 },
             },
         },
