@@ -49,6 +49,7 @@ const BookDentistPage = () => {
             id: event.id,
             title: currentLoggedUser.email,
             start: event.start,
+            end: event.end
         }
 
         axios.post("/api/dentists/reservations", {

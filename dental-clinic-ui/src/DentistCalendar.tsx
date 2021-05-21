@@ -81,18 +81,19 @@ const DentistCalendar: FC<DentistCalendarProps> = (props) => {
         calendarApi.unselect() // clear date selection
 
         if (title !== null) {
-            calendarApi.addEvent({
-                id: createEventId(),
-                title,
-                start: selectInfo.startStr,
-                end: selectInfo.endStr,
-                allDay: selectInfo.allDay
-            })
+            // calendarApi.addEvent({
+            //     id: createEventId(),
+            //     title,
+            //     start: selectInfo.startStr,
+            //     end: selectInfo.endStr,
+            //     allDay: selectInfo.allDay
+            // })
 
         }
         props.onSaveEvent({
             id: eventGuid,
             start: selectInfo.startStr,
+            end: selectInfo.endStr,
 
         });
         setShowAlert(false);
