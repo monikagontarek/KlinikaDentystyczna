@@ -14,11 +14,13 @@ import {
 } from "react-router-dom";
 import RegisterPage from "./RegisterPage";
 import axios from "axios";
+import {useGlobalContext} from "../AppContext";
+import {IUser} from "../types";
 import MockAdapter from "axios-mock-adapter";
 import { pink } from "@material-ui/core/colors";
 
 export interface IuserLogged {
-    mail: string,
+    email: string,
     password: string
 }
 
@@ -31,7 +33,7 @@ const useStyles = makeStyles({
 
     },
 
-    
+
     buttonZaloguj: {
         backgroundColor: '#489da8',
         "&:hover": {
@@ -69,21 +71,17 @@ const useStyles = makeStyles({
         marginBottom: 12,
         fontWeight: 100,
     },
-
 });
 
-const mock = new MockAdapter(axios);
 
-mock.onPost("/api/users/login", {mail: "user@gmail.com", password: "123456"}).reply(200);
-mock.onPost("/api/users/login").reply(403);
 
 const LoginPage = () => {
     const classes = useStyles();
-    const [mail, setMail] = useState("");
+    const [email, setMail] = useState("");
     const [password, setPassword] = useState("");
     const history = useHistory();
     const [errors, setErrors] = useState<Record<string, string>>({});
-
+    const {currentLoggedUser, setCurrentUser} = useGlobalContext()
 
 
     const handleMailChange = (event: any) => {
@@ -97,15 +95,15 @@ const LoginPage = () => {
         e.preventDefault();
         let newErrors: Record<string, string> = {}
         const user: IuserLogged = {
-            mail: mail,
+            email: email,
             password: password
         }
-        // if(userLogged.mail !== registerUser.mail){
+        // if(userLogged.email !== registerUser.email){
         //
         // }
 
-        if (!user.mail.includes("@")) {
-            newErrors = {...newErrors, "mail": "Prosze podać poprawny adres email"}
+        if (!user.email.includes("@")) {
+            newErrors = {...newErrors, "email": "Prosze podać poprawny adres email"}
         }
         if (user.password.length < 6) {
             newErrors = {...newErrors, "password": "Błędie wprowadzone hało, musi zawierać przynajmniej 6 znaków"}
@@ -118,6 +116,13 @@ const LoginPage = () => {
             try {
                 const response = await axios.post("/api/users/login", user)
                 console.log("odpowiedz od serwera", response)
+
+                // jezeli kod przechodzi tutaj to znaczy ze logowanie przeszlo prawidlowo i ustawim w zmiennej globalnej copy email usera
+                const myUser: IUser = {
+                    email: user.email,
+                    password: user.password,
+                }
+                setCurrentUser(myUser)
                 // tutaj powinnam ustawić tego użytkownika zalogowanego w context
                 history.push("/book-dentist")
             } catch (e) {
@@ -148,13 +153,13 @@ const LoginPage = () => {
                                         <Grid item xs={12}>
                                             <TextField error={!!errors["mail"]} helperText={errors["mail"]}
                                                        type={"mail"} fullWidth={true} label="Adres e-mail"
-                                                       variant="outlined" value={mail}
+                                                       variant="outlined" value={email}
                                                        className="fieldColor"
                                                        onChange={handleMailChange}
                                                        id="outlined-basic"
 
-                                        
-                                                        
+
+
                                                         />
                                         </Grid>
                                         <Grid item xs={12}>

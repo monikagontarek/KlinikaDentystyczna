@@ -36,16 +36,16 @@ const DentistList: FC<DentistListProps> = (props) => {
     const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
         // props.onSelectedDentist(event.target.value)
         const value = event.target.value;
-        console.log("value", value)
+        // console.log("value", value)
 
-        console.log("props.dentists", props.dentists)
+        // console.log("props.dentists", props.dentists)
 
 
 
         const filteredDentists = props.dentists.filter(dentist => dentist.id == value);
-        console.log("filteredDentists", filteredDentists)
+        // console.log("filteredDentists", filteredDentists)
         const currentSelectedDentist = filteredDentists[0]
-        console.log("filteredDentists[0]", currentSelectedDentist)
+        // console.log("filteredDentists[0]", currentSelectedDentist)
         props.onSelectedDentist(currentSelectedDentist)
     };
 

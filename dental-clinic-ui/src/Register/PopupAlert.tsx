@@ -8,6 +8,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 export interface AlertDialogProps {
     show: boolean,
+    info: string,
     onYes: () => void,
     onNo: () => void,
 }
@@ -18,7 +19,7 @@ export default function AlertDialog(props: AlertDialogProps) {
     const handleDisagree = () => {
         props.onNo()
     };
-    const handleAgree = () =>{
+    const handleAgree = () => {
         props.onYes()
     }
 
@@ -31,19 +32,18 @@ export default function AlertDialog(props: AlertDialogProps) {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                <DialogTitle id="alert-dialog-title">{"Use Google's location service?"}</DialogTitle>
+                <DialogTitle id="alert-dialog-title">{"Czy napewno chcesz zapisać się na wizytę?"}</DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Let Google help apps determine location. This means sending anonymous location data to
-                        Google, even when no apps are running.
+                        Wybrana przez Ciebie wizyta to: {props.info}
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleDisagree} color="primary">
-                        Disagree
+                        NIE
                     </Button>
                     <Button onClick={handleAgree} color="primary" autoFocus>
-                        Agree
+                        TAK
                     </Button>
                 </DialogActions>
             </Dialog>

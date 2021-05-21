@@ -6,11 +6,14 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import {IDentist} from "./types";
 import AlertDialog from "./Register/PopupAlert";
+import {useGlobalContext} from "./AppContext";
 
 
 export interface DentistCalendarProps {
     selectedDentist: IDentist,
-    onSaveEvent: (event: any) => void
+    onSaveEvent: (event: any) => void,
+    onRemoveEvent: (event: any)=> void,
+    // onChooseEvent: (message: any) => void,
 }
 
 const DentistCalendar: FC<DentistCalendarProps> = (props) => {
@@ -21,7 +24,9 @@ const DentistCalendar: FC<DentistCalendarProps> = (props) => {
 // const currentLoggedUser = useLoggedUser()
     const handleWeekendsToggle = () => {
         setWeekendsVisible(!weekendsVisible)
-    }
+    };
+    const {currentLoggedUser} = useGlobalContext();
+
 
     const handleDateSelect = (eventSelectInfo: DateSelectArg) => {
         setSelectInfo(eventSelectInfo);
@@ -49,13 +54,16 @@ const DentistCalendar: FC<DentistCalendarProps> = (props) => {
         if (window.confirm(`Jesteś pewien, że chcesz usnąć ten termin wizyty? '${clickInfo.event.title}'`)) {
             clickInfo.event.remove()
         }
+        props.onRemoveEvent({
+            // id: eventGuid,   id nie mogę przekazać bo zawsze zwraca mi to id ktore bylo jako ostatnio powiekszone przez metode addEvent
+            start: selectInfo.startStr,
+
+        });
+
     }
 
     const handleEvents = (events: EventApi[]) => {
         setCurrentEvents(events);
-        console.log("events w handle events", events)
-        props.onSaveEvent(events);
-
     }
 
 
@@ -67,11 +75,9 @@ const DentistCalendar: FC<DentistCalendarProps> = (props) => {
     }
 
     const handleYes = () => {
-        const title ="tytuł zdarzenia";
-        // title = currentLoggerUser.firstName
+        const view: string = currentLoggedUser.email
+        const title = view;
         let calendarApi = selectInfo.view.calendar
-        console.log("elect info", selectInfo)
-
         calendarApi.unselect() // clear date selection
 
         if (title !== null) {
@@ -84,17 +90,30 @@ const DentistCalendar: FC<DentistCalendarProps> = (props) => {
             })
 
         }
+        props.onSaveEvent({
+            id: eventGuid,
+            start: selectInfo.startStr,
 
+        });
         setShowAlert(false);
+
+
     }
     const handleNo = () => {
-        setShowAlert(false)
+        setShowAlert(false);
     }
+    let infoInAlert: string = "";
+    if (selectInfo) {
+        infoInAlert = selectInfo.start.toLocaleString("pl");
+
+    }
+
 
     return (
         <>
-            <AlertDialog show={showAlert} onYes={handleYes} onNo={handleNo}/>
+            <AlertDialog show={showAlert} info={infoInAlert} onYes={handleYes} onNo={handleNo}/>
             <FullCalendar
+
                 plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
                 headerToolbar={{
                     left: 'prev,next today',
@@ -124,6 +143,7 @@ const DentistCalendar: FC<DentistCalendarProps> = (props) => {
                 select={handleDateSelect}
                 eventContent={renderEventContent} // custom render function
                 eventClick={handleEventClick}
+                // eventAdd={function(){}}
                 eventsSet={handleEvents} // called after events are initialized/added/changed/removed
                 /* you can update a remote database when these fire:
                 eventAdd={function(){}}
@@ -137,7 +157,6 @@ const DentistCalendar: FC<DentistCalendarProps> = (props) => {
 
 
 function renderEventContent(eventContent: EventContentArg) {
-    console.log("event content", eventContent)
     return (
         <>
             <b>{eventContent.timeText}</b>
@@ -149,17 +168,12 @@ function renderEventContent(eventContent: EventContentArg) {
 
 let eventGuid = 1
 
-export const INITIAL_EVENTS: EventInput[] = [
 
-    {
-        id: createEventId(),
-        title: 'Monika',
-        start: "2021-05-11T12:30:00"
-    },
-]
 
 export function createEventId() {
-    return String(eventGuid++)
+    return String(eventGuid++);
+
+
 }
 
 export default DentistCalendar;

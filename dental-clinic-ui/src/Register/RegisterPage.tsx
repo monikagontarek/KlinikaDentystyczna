@@ -7,14 +7,11 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import {Box, Container, Grid, TextField} from "@material-ui/core";
 import axios from 'axios';
-import MockAdapter from "axios-mock-adapter";
 import {Alert, AlertTitle} from '@material-ui/lab';
 import {Link} from "react-router-dom";
 
-const mock = new MockAdapter(axios);
 
 
-mock.onPost("/api/users/register").reply(200);
 
 const useStyles = makeStyles({
     root: {

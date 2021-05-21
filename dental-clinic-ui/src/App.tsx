@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import logo from './logo.svg';
 import {
     BrowserRouter as Router,
@@ -6,11 +6,18 @@ import {
     Route,
     Link
 } from "react-router-dom";
+import AppProvider from "./AppContext";
+import UserInfo from "./UserInfo";
+import Button from "./Button";
 import RegisterPage from "./Register/RegisterPage";
 import {makeStyles} from "@material-ui/core/styles";
 import {createMuiTheme, CssBaseline, ThemeProvider} from "@material-ui/core";
 import LoginPage from "./Register/LoginPage";
 import BookDentistPage from "./BookDentistPage";
+import {mockData} from "./mock";
+import AdminPage from "./Admin/AdminPage";
+
+
 
 // tworze temat
 const theme = createMuiTheme({
@@ -35,20 +42,28 @@ const theme = createMuiTheme({
         },
     },
 });
+mockData();
 
+function AdmiPage() {
+    return null;
+}
 
+const App = () => {
 
-function App() {
 
     return (
-        <ThemeProvider theme={theme}>
-            <CssBaseline/>
+        <AppProvider>
+            < ThemeProvider theme={theme}>
+                <CssBaseline/>
 
-            <Router>
+                <Router>
 
                     {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
                     <Switch>
+                        <Route path="/adminPage">
+                            <AdminPage/>
+                        </Route>
                         <Route path="/register">
                             <RegisterPage/>
                         </Route>
@@ -60,11 +75,16 @@ function App() {
                         </Route>
                         <Route path="/">
                         </Route>
-                    </Switch>
-            </Router>
-        </ThemeProvider>
 
+                    </Switch>
+                </Router>
+            </ThemeProvider>
+        </AppProvider>
     );
+
+
 }
 
 export default App;
+
+
