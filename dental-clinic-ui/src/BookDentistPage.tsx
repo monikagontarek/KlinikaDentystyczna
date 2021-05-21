@@ -40,7 +40,7 @@ const BookDentistPage = () => {
     }, [])
 
 
-    const handleReservation = (event: any) => {
+    const handleReservation = async(event: any) => {
         console.log("dentysta - detist list [0]", dentists[0]);
         console.log("event w reserwation", event)
 
@@ -52,31 +52,28 @@ const BookDentistPage = () => {
             end: event.end
         }
 
-        axios.post("/api/dentists/reservations", {
-            dentistId: selectedDentist.id,
-            userEmail: currentLoggedUser.email,
-            eventStart: event.start
-        })
-
-
-        if (selectedDentist.id === dentists[0].id) {
-
-            const resInDen1 = [...selectedDentist.reservations];
-
-            resInDen1.push(bookReservation);
-            selectedDentist.reservations = resInDen1;
-            console.log("data dodawane", event.start );
-            console.log("rezerwacje dla michała", selectedDentist.reservations)
+        try{
+            await axios.post("/api/dentists/reservations", {
+                dentistId: selectedDentist.id,
+                userEmail: currentLoggedUser.email,
+                eventStart: event.start
+            })
+        } catch (e) {
+            console.error("Error contacting backend")
         }
-        if (selectedDentist.id === dentists[1].id) {
-            const resInDen2 = [...selectedDentist.reservations];
 
-            resInDen2.push(bookReservation);
-            selectedDentist.reservations = resInDen2;
-            // console.log("wybrałam", selectedDentist.id);
-            console.log("rezerwacje dla maćka", selectedDentist.reservations)
-        }
-        // setIdInRes(idInRes +1);
+
+        // klonowanie obiektu
+        const clonedDentist: IDentist = {...selectedDentist};
+        clonedDentist.reservations = [...clonedDentist.reservations, bookReservation]
+        setSelectedDentist(clonedDentist)
+
+        const clonedDentists = [...dentists];
+        const index = clonedDentists.findIndex(row => row.id === clonedDentist.id);
+        clonedDentists[index] = clonedDentist;
+
+        setDentists(clonedDentists)
+
     }
 
     const handleRemoveReservation = (event: any) => {

@@ -53,7 +53,7 @@ const DentistList: FC<DentistListProps> = (props) => {
 
     return (
         <FormControl className={classes.formControl}>
-            <InputLabel style={{fontSize: '18px', color: 'darkblue', padding: '5px'}}><strong>Wybierz Lekarza:</strong></InputLabel><br/>
+            <InputLabel style={{fontSize: '18px', color: 'darkblue', padding: '5px'}}><strong>Wybierz Lekarza: </strong></InputLabel><br/>
             <Select
                 value={props.selectedDentist.id}
                 onChange={handleChange}
