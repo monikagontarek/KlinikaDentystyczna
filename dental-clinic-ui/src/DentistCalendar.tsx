@@ -4,7 +4,7 @@ import {CalendarContext, DateSpanApi} from "@fullcalendar/common";
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
-import {IDentist} from "./types";
+import {IDentist, IReservation} from "./types";
 import AlertDialog from "./Register/PopupAlert";
 import {useGlobalContext} from "./AppContext";
 
@@ -12,8 +12,8 @@ import {useGlobalContext} from "./AppContext";
 export interface DentistCalendarProps {
     selectedDentist: IDentist,
     onSaveEvent: (event: any) => void,
-    onRemoveEvent: (event: any)=> void,
-    // onChooseEvent: (message: any) => void,
+    onRemoveEvent: (reservation: IReservation)=> void,
+
 }
 
 const DentistCalendar: FC<DentistCalendarProps> = (props) => {
@@ -21,7 +21,7 @@ const DentistCalendar: FC<DentistCalendarProps> = (props) => {
     const [currentEvents, setCurrentEvents] = useState<EventApi[]>([]);
     const [showAlert, setShowAlert] = useState(false);
     const [selectInfo, setSelectInfo] = useState<DateSelectArg>();
-// const currentLoggedUser = useLoggedUser()
+
     const handleWeekendsToggle = () => {
         setWeekendsVisible(!weekendsVisible)
     };
@@ -30,37 +30,23 @@ const DentistCalendar: FC<DentistCalendarProps> = (props) => {
 
     const handleDateSelect = (eventSelectInfo: DateSelectArg) => {
         setSelectInfo(eventSelectInfo);
-        console.log("handle date select", selectInfo)
+
         setShowAlert(true);
-        // let title = prompt('Proszę, wpisz jako tytuł wizyty, swój adres email')
-        // let calendarApi = selectInfo.view.calendar
-        // console.log("elect info", selectInfo)
-        //
-        // calendarApi.unselect() // clear date selection
-        //
-        // if (title) {
-        //     calendarApi.addEvent({
-        //         id: createEventId(),
-        //         title,
-        //         start: selectInfo.startStr,
-        //         end: selectInfo.endStr,
-        //         allDay: selectInfo.allDay
-        //     })
-        //
-        // }
+
     }
 
     const handleEventClick = (clickInfo: EventClickArg) => {
         if (window.confirm(`Jesteś pewien, że chcesz usnąć ten termin wizyty? '${clickInfo.event.title}'`)) {
-            clickInfo.event.remove()
-        }
-        props.onRemoveEvent({
-            // id: eventGuid,   id nie mogę przekazać bo zawsze zwraca mi to id ktore bylo jako ostatnio powiekszone przez metode addEvent
-            start: selectInfo.startStr,
-
-        });
+            props.onRemoveEvent({
+                id: clickInfo.event.id,
+                start: clickInfo.event.startStr,
+                end: clickInfo.event.endStr,
+            });
+         }
 
     }
+
+
 
     const handleEvents = (events: EventApi[]) => {
         setCurrentEvents(events);
@@ -72,6 +58,7 @@ const DentistCalendar: FC<DentistCalendarProps> = (props) => {
         const diffInMinutes = diffMs / 60 / 1000;
 
         return diffInMinutes <= 30;
+
     }
 
     const handleYes = () => {
@@ -80,16 +67,7 @@ const DentistCalendar: FC<DentistCalendarProps> = (props) => {
         let calendarApi = selectInfo.view.calendar
         calendarApi.unselect() // clear date selection
 
-        if (title !== null) {
-            // calendarApi.addEvent({
-            //     id: createEventId(),
-            //     title,
-            //     start: selectInfo.startStr,
-            //     end: selectInfo.endStr,
-            //     allDay: selectInfo.allDay
-            // })
 
-        }
         props.onSaveEvent({
             id: eventGuid,
             start: selectInfo.startStr,
@@ -108,7 +86,6 @@ const DentistCalendar: FC<DentistCalendarProps> = (props) => {
         infoInAlert = selectInfo.start.toLocaleString("pl");
 
     }
-
 
     return (
         <>
@@ -142,9 +119,10 @@ const DentistCalendar: FC<DentistCalendarProps> = (props) => {
                 weekends={weekendsVisible}
                 events={props.selectedDentist.reservations} // alternatively, use the `events` setting to fetch from a feed
                 select={handleDateSelect}
+
                 eventContent={renderEventContent} // custom render function
                 eventClick={handleEventClick}
-                // eventAdd={function(){}}
+
                 eventsSet={handleEvents} // called after events are initialized/added/changed/removed
                 /* you can update a remote database when these fire:
                 eventAdd={function(){}}
@@ -155,6 +133,8 @@ const DentistCalendar: FC<DentistCalendarProps> = (props) => {
         </>
     );
 }
+
+
 
 
 function renderEventContent(eventContent: EventContentArg) {

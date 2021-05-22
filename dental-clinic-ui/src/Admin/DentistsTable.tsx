@@ -31,7 +31,6 @@ export default function DentistsTable(props: IdataGrid) {
     const [editDentist, setEditDentist] = useState<IDentist | null>(null)
 
     const handleSelection = (event: any) => {
-        // console.log("wybrany ", event.selectionModel);
         setVisibleButton(true);
         if (event.selectionModel.length === 0) {
             setVisibleButton(false);
@@ -44,7 +43,7 @@ export default function DentistsTable(props: IdataGrid) {
     const handleRemove = (event: any) => {
 
         const newRows = [...props.rows];
-        // console.log("index", indexInput)
+
         newRows.splice(indexInput, 1);
         props.onDeleteDentist(newRows)
 
@@ -52,14 +51,13 @@ export default function DentistsTable(props: IdataGrid) {
     }
 
     const handleEdit = (event: any) => {
-        // console.log("edytuj", event);
-        // console.log("index edytowanego", indexInput);
+
         const editDentist: IDentist = props.rows[indexInput]
         setVisibleEditPanel(true)
         setEditDentist(editDentist);
     }
 
-    const handleEditDentist = async(dentist: IDentist) => {
+    const handleEditDentist = async (dentist: IDentist) => {
         const cloned = [...props.rows];
         cloned[indexInput] = dentist;
         console.log("edytowany obiekt", props.rows[indexInput]);

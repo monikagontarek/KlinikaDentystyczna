@@ -19,9 +19,9 @@ const dentistsList: IDentist[] = [
         password: "a",
         reservations: [
             {
-                id: "1",
+                id: uuid(),
                 title: 'Monika',
-                start: "2021-05-11T13:30:00"
+                start: "2021-05-18T13:30:00"
             }
         ]
     },
@@ -33,9 +33,9 @@ const dentistsList: IDentist[] = [
         password: "b",
         reservations: [
             {
-                id: "2",
+                id: uuid(),
                 title: 'Monika',
-                start: "2021-05-12T12:30:00"
+                start: "2021-05-18T12:30:00"
             }
         ]
     }
@@ -50,12 +50,12 @@ const newReservationResponse: IDentist[] = [
         password: "a",
         reservations: [
             {
-                id: "1",
+                id: uuid(),
                 title: 'Monika',
                 start: "2021-05-11T13:30:00"
             },
             {
-                id: "3",
+                id: uuid(),
                 title: "Title",
                 start: "2021-05-11T13:30:00"
             }
@@ -69,7 +69,7 @@ const newReservationResponse: IDentist[] = [
         password: "b",
         reservations: [
             {
-                id: "2",
+                id: uuid(),
                 title: 'Monika',
                 start: "2021-05-12T12:30:00"
             }
