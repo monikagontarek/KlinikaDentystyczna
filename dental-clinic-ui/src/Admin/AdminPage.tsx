@@ -17,8 +17,8 @@ const initialRows: IDentist[] = [
         id: uuid(),
         firstName: "Michal",
         lastName: "Nowak",
-        email: "nowak@",
-        password: "",
+        email: "nowak@nowak.pl",
+        password: "nowak1",
         reservations: [],
 
     },

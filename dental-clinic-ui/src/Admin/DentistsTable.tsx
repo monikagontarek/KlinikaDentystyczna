@@ -1,19 +1,34 @@
 import * as React from 'react';
-import {DataGrid, GridColDef, GridValueGetterParams} from '@material-ui/data-grid';
+import {DataGrid, GridColDef, GridValueGetterParams, useGridSlotComponentProps} from '@material-ui/data-grid';
 import {IDentist, IReservation} from "../types";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import {uuid} from "uuidv4";
 import SaveDentistForm from "./SaveDentistForm";
+import { makeStyles } from '@material-ui/core';
+
 
 
 const columns: GridColDef[] = [
-    {field: 'id', headerName: 'ID', width: 70},
-    {field: 'firstName', headerName: 'Imie', width: 130},
-    {field: 'lastName', headerName: 'Nazwisko', width: 130},
-    {field: 'email', headerName: 'E-mail', width: 130},
-
+{
+    field: 'id', 
+    headerName: 'ID', 
+    hide: true, 
+},
+{
+    field: 'firstName', 
+    headerName: 'Imie', 
+    width: 250},
+{
+    field: 'lastName', 
+    headerName: 'Nazwisko', 
+    width: 250},
+{
+    field: 'email', 
+    headerName: 'E-mail', 
+    width: 250},
 ];
+
 
 
 export interface IdataGrid {
@@ -70,16 +85,41 @@ export default function DentistsTable(props: IdataGrid) {
         props.onEditDentist(cloned);
     }
 
-
     return (
-        <div style={{height: 400, width: '100%'}}>
+        <div style={{height: 300, width: '100%'}}>
             {visibleButton
                 ?
-                <button style={{height: 35, backgroundColor: "#3f51b5", color: "white"}} onClick={handleRemove}>Usuń wybranego użytkownika</button>
+                <button style={
+                    {
+                        height: 55, 
+                        display: "block", 
+                        width: 200, 
+                        marginLeft: "auto", 
+                        marginRight: "auto", 
+                        marginBottom: 5, 
+                        border: 0, 
+
+                        borderRadius: 5, 
+                        backgroundColor: "#D5D5D5", 
+                        color: "#383838",
+                    }} 
+                        onClick={handleRemove}>Usuń wybranego użytkownika</button>
                 : null
             }
             {visibleButton
-                ? <button style={{height: 35, width: "160px", backgroundColor: "#3f51b5", color: "white"}} onClick={handleEdit}>Edytuj użytkownika</button>
+                ? <button style={
+                    {
+                        height: 55, 
+                        display: "block", 
+                        width: 200,
+                        marginLeft: "auto", 
+                        marginRight: "auto", 
+                        marginBottom: 5, 
+                        border: 0, 
+                        borderRadius: 5, 
+                        backgroundColor: "#D5D5D5", 
+                        color: "#383838"}} 
+                        onClick={handleEdit}>Edytuj użytkownika</button>
                 : null
             }
             {visibleEditPanel
@@ -90,7 +130,6 @@ export default function DentistsTable(props: IdataGrid) {
                       onSelectionModelChange={handleSelection}
 
             />
-
 
         </div>
     )

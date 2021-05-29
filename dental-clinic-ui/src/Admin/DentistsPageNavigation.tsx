@@ -5,11 +5,14 @@ import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
 import PersonAddIcon from '@material-ui/icons/PersonAdd';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import { Autocomplete } from '@material-ui/lab';
 
 
 const useStyles = makeStyles({
     root: {
-        width: 500,
+        marginLeft: "auto",
+        marginRight: "auto",
+        width: "100%",
     },
 });
 
