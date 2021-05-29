@@ -1,5 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import Button from "@material-ui/core/Button";
+import { makeStyles } from "@material-ui/core/styles";
+import { withStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import {Box, Container, Grid, TextField} from "@material-ui/core";
+import {Link} from "react-router-dom";
 import {IDentist} from "../types";
 import {uuid} from 'uuidv4';
 
@@ -60,20 +68,44 @@ const SaveDentistForm = (props: IpageAddDentist) => {
         props.onSave(newDentist);
     }
 
-    return (
-        <div style={{fontSize: "15px", padding: "15px"}}>
-            <form onSubmit={handleOnSubmit}>
-            <label style={{marginRight: "35px"}}>Wprowadz imię dentysty</label> <input value={name} onChange={(event) => setName(event.target.value)}/><br/>
-            <label>Wprowadz nazwisko dentysty</label> <input value={lastName} onChange={(event) => setLastName(event.target.value)}/><br/>
-            <label style={{marginRight: "25px"}}>Wprowadz email dentysty</label> <input value={mail} onChange={(event) => setMail(event.target.value)}/><br/>
-            <label style={{marginRight: "25px"}}>Wprowadz hasło dentysty</label> <input value={passwordDentist}
-                                                                                        onChange={(event) => setPasswordDentist(event.target.value)}/><br/>
-            <Button onClick={handleSave} variant="contained" color="primary">
-                Zapisz
-            </Button>
-            </form>
 
-        </div>
+
+        
+    return (
+
+        
+        <Box paddingTop={4} paddingBottom={3}>
+            <Container maxWidth="sm">
+            <Card>
+                <CardContent>
+                <Typography color="textSecondary">
+                    Wprowadź dane dentysty:
+                </Typography>
+                <Grid>
+            <form onSubmit={handleOnSubmit}>
+            
+            <TextField style={{margin: 5}} fullWidth={true} variant="outlined" label="Imię" value={name} onChange={(event) => setName(event.target.value)}/> 
+            <TextField style={{margin: 5}} fullWidth={true} variant="outlined" label="Nazwisko" value={lastName} onChange={(event) => setLastName(event.target.value)}/>
+            <TextField style={{margin: 5}} fullWidth={true} variant="outlined" label="Adres E-Mail" value={mail} onChange={(event) => setMail(event.target.value)}/>
+            <TextField style={{margin: 5}} fullWidth={true} variant="outlined" label="Hasło" value={passwordDentist} onChange={(event) => setPasswordDentist(event.target.value)}/>
+        
+            </form>
+            </Grid>
+            </CardContent>
+            <CardActions>
+                <Button onClick={handleSave} style={{
+                    backgroundColor: '#489da8', 
+                    border: 0,
+                    borderRadius: 3,
+                    color: '#fff',
+                    height: 48,
+                    padding: '0 30px'}}type={"submit"}>Dodaj</Button>
+            </CardActions>
+            </Card>
+            </Container>
+        </Box>
+
+
     );
 };
 
