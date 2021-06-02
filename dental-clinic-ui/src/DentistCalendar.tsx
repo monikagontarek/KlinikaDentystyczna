@@ -14,6 +14,8 @@ export interface DentistCalendarProps {
     onSaveEvent: (event: any) => void,
     onRemoveEvent: (reservation: IReservation)=> void,
 
+    
+
 }
 
 const DentistCalendar: FC<DentistCalendarProps> = (props) => {
@@ -87,6 +89,10 @@ const DentistCalendar: FC<DentistCalendarProps> = (props) => {
 
     }
 
+
+
+    
+
     return (
         <>
             <AlertDialog show={showAlert} info={infoInAlert} onYes={handleYes} onNo={handleNo}/>
@@ -102,6 +108,7 @@ const DentistCalendar: FC<DentistCalendarProps> = (props) => {
                 editable={true}
 
                 locale={"pl"}
+                
                 selectable={true}
                 selectOverlap={false}
                 slotMinTime={"08:00:00"}
@@ -156,5 +163,6 @@ export function createEventId() {
 
 
 }
+
 
 export default DentistCalendar;
