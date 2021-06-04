@@ -1,0 +1,2 @@
+1. Wrzucenie rozpakowanej paczki app.zip na serwer
+2. Udostepnienie paczki app pod adresem https://{serwer}/app/, a szczegolnie pliku index.html
