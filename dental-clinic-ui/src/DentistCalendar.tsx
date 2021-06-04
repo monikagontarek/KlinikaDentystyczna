@@ -126,6 +126,8 @@ const DentistCalendar: FC<DentistCalendarProps> = (props) => {
                 weekends={weekendsVisible}
                 events={props.selectedDentist.reservations} // alternatively, use the `events` setting to fetch from a feed
                 select={handleDateSelect}
+                
+                eventBackgroundColor={'blue'}
 
                 eventContent={renderEventContent} // custom render function
                 eventClick={handleEventClick}
@@ -154,7 +156,7 @@ function renderEventContent(eventContent: EventContentArg) {
 }
 
 
-let eventGuid = 1
+let eventGuid = 1;
 
 
 

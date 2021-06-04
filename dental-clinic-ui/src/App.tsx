@@ -4,7 +4,7 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link
+    Link, HashRouter, Redirect
 } from "react-router-dom";
 import AppProvider from "./AppContext";
 import UserInfo from "./UserInfo";
@@ -56,7 +56,7 @@ const App = () => {
             < ThemeProvider theme={theme}>
                 <CssBaseline/>
 
-                <Router>
+                <HashRouter>
 
                     {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
@@ -73,11 +73,12 @@ const App = () => {
                         <Route path="/book-dentist">
                             <BookDentistPage/>
                         </Route>
-                        <Route path="/">
+                        <Route exact path="/">
+                            <Redirect to="/login" />
                         </Route>
 
                     </Switch>
-                </Router>
+                </HashRouter>
             </ThemeProvider>
         </AppProvider>
     );
