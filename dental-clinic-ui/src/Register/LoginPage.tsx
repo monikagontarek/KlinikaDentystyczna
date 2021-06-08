@@ -133,7 +133,7 @@ const LoginPage = () => {
         }
         setErrors(newErrors)
     }
-    
+
     return (
         <>
         <img src="http://lapavlo.pl/wp-content/uploads/2021/05/logodenti.png" className={classes.logo} />
@@ -154,6 +154,7 @@ const LoginPage = () => {
                                                        variant="outlined" value={email}
                                                        className="fieldColor"
                                                        onChange={handleMailChange}
+                                                       autoComplete={"on"}
                                                        id="outlined-basic"
 
 
@@ -163,6 +164,7 @@ const LoginPage = () => {
                                         <Grid item xs={12}>
                                             <TextField error={!!errors["password"]} helperText={errors["password"]}
                                                        type={"password"} fullWidth={true}
+                                                       autoComplete={"on"}
                                                        label="Hasło" variant="outlined" value={password}
                                                        onChange={handlePasswordChange}
                                                        color="secondary" />
@@ -184,9 +186,9 @@ const LoginPage = () => {
 
                 </Container>
             </Box>
-            
+
         </>
-        
+
     )
 };
 
