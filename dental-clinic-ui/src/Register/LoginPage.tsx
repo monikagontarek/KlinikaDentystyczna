@@ -30,9 +30,7 @@ export interface IuserLogged {
 const useStyles = makeStyles({
     root: {
         minWidth: 275,
-
     },
-
 
     buttonZaloguj: {
         backgroundColor: '#489da8',
@@ -135,11 +133,11 @@ const LoginPage = () => {
         }
         setErrors(newErrors)
     }
-
+    
     return (
         <>
         <img src="http://lapavlo.pl/wp-content/uploads/2021/05/logodenti.png" className={classes.logo} />
-            <Box paddingTop={4}>
+            <Box paddingTop={4} >
                 <Container maxWidth="sm">
                     <>
                         <form onSubmit={handleLogin} autoComplete="on">
@@ -186,7 +184,9 @@ const LoginPage = () => {
 
                 </Container>
             </Box>
+            
         </>
+        
     )
 };
 
