@@ -4,7 +4,7 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link, HashRouter, Redirect
+    Link
 } from "react-router-dom";
 import AppProvider from "./AppContext";
 import UserInfo from "./UserInfo";
@@ -27,7 +27,7 @@ const theme = createMuiTheme({
                 body: {
                     width: "100%",
                     height: "100%",
-                    backgroundColor: "#489da8",
+                    backgroundColor: "#b7b7b7",
                 },
                 html: {
                     width: "100%",
@@ -36,7 +36,7 @@ const theme = createMuiTheme({
                 "#root": {
                     width: "100%",
                     height: "100%",
-                    backgroundColor: "#489da8",
+                    backgroundColor: "#b7b7b7",
                 },
             },
         },
@@ -56,7 +56,7 @@ const App = () => {
             < ThemeProvider theme={theme}>
                 <CssBaseline/>
 
-                <HashRouter>
+                <Router>
 
                     {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
@@ -73,12 +73,11 @@ const App = () => {
                         <Route path="/book-dentist">
                             <BookDentistPage/>
                         </Route>
-                        <Route exact path="/">
-                            <Redirect to="/login" />
+                        <Route path="/">
                         </Route>
 
                     </Switch>
-                </HashRouter>
+                </Router>
             </ThemeProvider>
         </AppProvider>
     );
