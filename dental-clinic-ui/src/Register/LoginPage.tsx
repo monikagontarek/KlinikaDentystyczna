@@ -110,7 +110,7 @@ const LoginPage = () => {
 
             console.log("User in logg", user)
 
-            // axios biblioteka ktora robi zadania http (komunikuje sie z backendem - czy logowany element znajduje się w bazie dodanych przy rejestracji)
+            // wysyłam dane logowanego uzytkownika do backend, sprawdzam  czy logowany element znajduje się w bazie dodanych przy rejestracji)
             try {
                 const response = await axios.post("/api/users/login", user)
                 console.log("odpowiedz od serwera", response)

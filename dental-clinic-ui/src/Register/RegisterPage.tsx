@@ -132,7 +132,15 @@ const RegisterPage = () => {
 
             console.log("Register", registerUser)
 
-            // axios biblioteka ktora robi zadania http (komunikuje sie z backendem)
+            // wysyłam dane na backend - dane dotyczą nowo rejetrującego się użytkownika - registerUser ( firstName: firstName,
+            //             lastName: lastName,
+            //             pesel: pesel,
+            //             mail: mail,
+            //             password: password,
+            //             phone: phone,)
+
+
+
             const response = await axios.post("/api/users/register", registerUser)
             console.log("odpowiedz od serwera", response)
             setRegistered(true)
