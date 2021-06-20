@@ -14,8 +14,8 @@ import {useLocalStorage} from "./useLocalStorage";
 
 
 
-//  przekopiowalam te linie z tutorialu https://dev.to/madv/usecontext-with-typescript-23ln (skopiowalem po prostu kod)
-//  zamien sobie te nazwe zmiennej z copy na typ User i nazwe zmienna tez user
+//  przekopiowalam te linie z tutorialu https://dev.to/madv/usecontext-with-typescript-23ln (skopiowalam po prostu kod)
+//  zamieniam sobie te nazwe zmiennej z copy na typ User i nazwe zmienna tez user
 //  roznica pomiedzy propsami a react context https://miro.medium.com/max/3472/1*Jx8BCxZFN2SCuhQtZqfgMQ.jpeg
 export type GlobalContent = {
     // copy: string

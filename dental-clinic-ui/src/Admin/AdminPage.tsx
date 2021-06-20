@@ -52,6 +52,7 @@ const AdminPage = () => {
 
 
         }
+        // obsługa wszystkich funkcji dla administratora 1: obsługa dodawania nowego denstysty;
         const handleOnAdd = async(dentist: IDentist) => {
             try {
                 await axios.put("/api/dentists", dentist)
@@ -60,9 +61,11 @@ const AdminPage = () => {
             }
             setRows([...rows, dentist])
         }
+        // obsługa usuwania denstysty
         const handleDeleteDentist = (newRows: IDentist[]) => {
             setRows(newRows);
         }
+        // obsługa edycji dentysty
         const handleEditDentist = (newDentists: IDentist[]) => {
             setRows(newDentists)
         }

@@ -11,21 +11,21 @@ import { makeStyles } from '@material-ui/core';
 
 const columns: GridColDef[] = [
 {
-    field: 'id', 
-    headerName: 'ID', 
-    hide: true, 
+    field: 'id',
+    headerName: 'ID',
+    hide: true,
 },
 {
-    field: 'firstName', 
-    headerName: 'Imie', 
+    field: 'firstName',
+    headerName: 'Imie',
     width: 250},
 {
-    field: 'lastName', 
-    headerName: 'Nazwisko', 
+    field: 'lastName',
+    headerName: 'Nazwisko',
     width: 250},
 {
-    field: 'email', 
-    headerName: 'E-mail', 
+    field: 'email',
+    headerName: 'E-mail',
     width: 250},
 ];
 
@@ -72,6 +72,8 @@ export default function DentistsTable(props: IdataGrid) {
         setEditDentist(editDentist);
     }
 
+
+    // obsługa edycji wybranego denstysty przez administratora
     const handleEditDentist = async (dentist: IDentist) => {
         const cloned = [...props.rows];
         cloned[indexInput] = dentist;
@@ -91,34 +93,34 @@ export default function DentistsTable(props: IdataGrid) {
                 ?
                 <button style={
                     {
-                        height: 55, 
-                        display: "block", 
-                        width: 200, 
-                        marginLeft: "auto", 
-                        marginRight: "auto", 
-                        marginBottom: 5, 
-                        border: 0, 
+                        height: 55,
+                        display: "block",
+                        width: 200,
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                        marginBottom: 5,
+                        border: 0,
 
-                        borderRadius: 5, 
-                        backgroundColor: "#D5D5D5", 
+                        borderRadius: 5,
+                        backgroundColor: "#D5D5D5",
                         color: "#383838",
-                    }} 
+                    }}
                         onClick={handleRemove}>Usuń wybranego użytkownika</button>
                 : null
             }
             {visibleButton
                 ? <button style={
                     {
-                        height: 55, 
-                        display: "block", 
+                        height: 55,
+                        display: "block",
                         width: 200,
-                        marginLeft: "auto", 
-                        marginRight: "auto", 
-                        marginBottom: 5, 
-                        border: 0, 
-                        borderRadius: 5, 
-                        backgroundColor: "#D5D5D5", 
-                        color: "#383838"}} 
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                        marginBottom: 5,
+                        border: 0,
+                        borderRadius: 5,
+                        backgroundColor: "#D5D5D5",
+                        color: "#383838"}}
                         onClick={handleEdit}>Edytuj użytkownika</button>
                 : null
             }

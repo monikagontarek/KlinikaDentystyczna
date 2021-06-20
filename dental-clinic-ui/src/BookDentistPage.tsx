@@ -16,6 +16,8 @@ const BookDentistPage = () => {
     const [messageInInput, setMessageInInput] = useState("");
     const [dentists, setDentists] = useState<IDentist[]>([]);
 
+    // pobieram informacje z bazy danych o istniejacych denstystach w bazie
+
     useEffect(() => {
         axios.get<IDentist[]>("/api/dentists").then(response => {
             const responseDentists = response.data;
@@ -27,7 +29,7 @@ const BookDentistPage = () => {
         })
     }, [])
 
-
+// opbsługa rezerwacji - aby dokonać rezerwacji potrzebuje z bazy danych : id wybranego denstysty, email osoby ktora się zapisuje na wizytę oraz start wizyty
     const handleReservation = async(event: any) => {
         console.log("dentysta - detist list [0]", dentists[0]);
         console.log("event w reserwation", event)
