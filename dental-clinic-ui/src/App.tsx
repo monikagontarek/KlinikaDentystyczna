@@ -29,7 +29,7 @@ const theme = createMuiTheme({
                 body: {
                     width: "100%",
                     height: "100%",
-                    backgroundColor: "#b7b7b7",
+                    backgroundColor: "#489da8",
                 },
                 html: {
                     width: "100%",
@@ -38,7 +38,7 @@ const theme = createMuiTheme({
                 "#root": {
                     width: "100%",
                     height: "100%",
-                    backgroundColor: "#b7b7b7",
+                    backgroundColor: "#489da8",
                 },
             },
         },
