@@ -141,7 +141,7 @@ const RegisterPage = () => {
 
 
 
-            const response = await axios.post("/api/users/register", registerUser)
+            const response = await axios.post("/registration.php", registerUser)
             console.log("odpowiedz od serwera", response)
             setRegistered(true)
 

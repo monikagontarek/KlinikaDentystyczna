@@ -12,14 +12,14 @@ import axios from "axios";
 const BookDentistPage = () => {
     const [selectedDentist, setSelectedDentist] = useState<IDentist>(null);
     const [allReservations, setAllReservations] = useState([]);
-    const {currentLoggedUser} = useGlobalContext();
+    const {currentLoggedUser, token} = useGlobalContext();
     const [messageInInput, setMessageInInput] = useState("");
     const [dentists, setDentists] = useState<IDentist[]>([]);
 
     // pobieram informacje z bazy danych o istniejacych denstystach w bazie
 
     useEffect(() => {
-        axios.get<IDentist[]>("/api/dentists").then(response => {
+        axios.get<IDentist[]>("/dentists.php").then(response => {
             const responseDentists = response.data;
             setDentists(responseDentists)
             setSelectedDentist(responseDentists[0])
@@ -43,10 +43,13 @@ const BookDentistPage = () => {
         }
 
         try{
-            await axios.post("/api/dentists/reservations", {
+            await axios.post("/create-event.php", {
                 dentistId: selectedDentist.id,
-                userEmail: currentLoggedUser.email,
                 eventStart: event.start
+            },{
+                headers: {
+                    Authorization: "Bearer " + token
+                }
             })
         } catch (e) {
             console.error("Error contacting backend")

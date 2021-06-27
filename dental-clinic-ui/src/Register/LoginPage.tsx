@@ -79,7 +79,7 @@ const LoginPage = () => {
     const [password, setPassword] = useState("");
     const history = useHistory();
     const [errors, setErrors] = useState<Record<string, string>>({});
-    const {currentLoggedUser, setCurrentUser} = useGlobalContext()
+    const {currentLoggedUser, setCurrentUser, setToken} = useGlobalContext()
 
 
     const handleMailChange = (event: any) => {
@@ -103,7 +103,7 @@ const LoginPage = () => {
         if (!user.email.includes("@")) {
             newErrors = {...newErrors, "email": "Prosze podać poprawny adres email"}
         }
-        if (user.password.length < 6) {
+        if (user.password.length < 5) {
             newErrors = {...newErrors, "password": "Błędie wprowadzone hało, musi zawierać przynajmniej 6 znaków"}
         }
         if (Object.keys(newErrors).length === 0) {
@@ -112,9 +112,10 @@ const LoginPage = () => {
 
             // wysyłam dane logowanego uzytkownika do backend, sprawdzam  czy logowany element znajduje się w bazie dodanych przy rejestracji)
             try {
-                const response = await axios.post("/api/users/login", user)
+                const response = await axios.post("/login.php", user)
                 console.log("odpowiedz od serwera", response)
-
+                const responseData = response.data;
+                setToken(responseData.jwt);
                 // jezeli kod przechodzi tutaj to znaczy ze logowanie przeszlo prawidlowo i ustawim w zmiennej globalnej copy email usera
                 const myUser: IUser = {
                     email: user.email,
@@ -122,7 +123,12 @@ const LoginPage = () => {
                 }
                 setCurrentUser(myUser)
                 // tutaj powinnam ustawić tego użytkownika zalogowanego w context
-                history.push("/book-dentist")
+                if(responseData.id_permissions === 1) {
+                    history.push("/adminPage")
+                } else {
+                    history.push("/book-dentist")
+                }
+
             } catch (e) {
                 console.error("odpowiedz od serwera jest bledna", e)
             }

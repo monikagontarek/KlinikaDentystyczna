@@ -16,8 +16,8 @@ import {makeStyles} from "@material-ui/core/styles";
 import {createMuiTheme, CssBaseline, ThemeProvider} from "@material-ui/core";
 import LoginPage from "./Register/LoginPage";
 import BookDentistPage from "./BookDentistPage";
-import {mockData} from "./mock";
 import AdminPage from "./Admin/AdminPage";
+import axios from "axios";
 
 
 
@@ -44,12 +44,32 @@ const theme = createMuiTheme({
         },
     },
 });
-mockData();
+// mockData();
 
-function AdmiPage() {
-    return null;
+
+const setupAxiosInterceptors = (onUnauthenticated?: any) => {
+    const onRequestSuccess = async (config: any) => {
+        const token = JSON.parse(localStorage.getItem('token'))
+        if (!config.headers.Authorization && token) {
+            config.headers.Authorization = `Bearer ${token}`
+        }
+        return config
+    }
+    // const onResponseSuccess = (response: any) => response
+    // const onResponseError = (err: any) => {
+    //     const status = err.status || (err.response ? err.response.status : 0)
+    //     if (status === 403 || status === 401) {
+    //         // onUnauthenticated()
+    //     }
+    //     return Promise.reject(err)
+    // }
+    axios.interceptors.request.use(onRequestSuccess)
 }
 
+
+
+
+setupAxiosInterceptors();
 const App = () => {
 
 

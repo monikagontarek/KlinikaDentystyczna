@@ -81,12 +81,25 @@ const newReservationResponse: IDentist[] = [
 export const mockData = () => {
     const mock = new MockAdapter(axios);
 
-    mock.onPost("/api/users/login", {email: "user@gmail.com", password: "123456"}).reply(200);
-    mock.onPost("/api/users/login").reply(403);
-    mock.onPost("/api/users/register").reply(200);
-    mock.onGet("/api/dentists").reply(200, dentistsList);
+    // mock.onPost("/api/users/login", {email: "user@gmail.com", password: "123456"}).reply(200);
+    // mock.onPost("/api/users/login").reply(403);
+    // mock.onPost("/api/users/register").reply(200);
+    // mock.onGet("/api/dentists").reply(200, dentistsList);
     mock
         .onPost("/api/dentists")
+        .passThrough();
+    mock
+        .onPost("/login.php")
+        .passThrough();
+    mock
+        .onPost("/registration.php")
+        .passThrough();
+    mock
+        .onGet("/dentists.php")
+        .passThrough();
+
+    mock
+        .onPost("/create-event.php")
         .passThrough();
 
     mock

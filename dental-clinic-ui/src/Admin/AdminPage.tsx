@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import DentistsPageNavigation from "./DentistsPageNavigation";
 import DentistsTable from "./DentistsTable";
 import SaveDentistForm from "./SaveDentistForm";
@@ -12,32 +12,42 @@ import axios from "axios";
 //     openDialog: boolean;
 // }
 
-const initialRows: IDentist[] = [
-    {
-        id: uuid(),
-        firstName: "Michal",
-        lastName: "Nowak",
-        email: "nowak@nowak.pl",
-        password: "nowak1",
-        reservations: [],
-
-    },
-    {
-        id: uuid(),
-        firstName: "Maciej",
-        lastName: "Jankowski",
-        email: "",
-        password: "",
-        reservations: [],
-
-    }
-
-];
+// const initialRows: IDentist[] = [
+//     {
+//         id: uuid(),
+//         firstName: "Michal",
+//         lastName: "Nowak",
+//         email: "nowak@nowak.pl",
+//         password: "nowak1",
+//         reservations: [],
+//
+//     },
+//     {
+//         id: uuid(),
+//         firstName: "Maciej",
+//         lastName: "Jankowski",
+//         email: "",
+//         password: "",
+//         reservations: [],
+//
+//     }
+//
+// ]
+// ;
 const AdminPage = () => {
         const [visibleDentistsTable, setVisibleDentistsTable] = useState(false);
         const [visibleAdd, setVisibleAdd] = useState(false);
-        const [rows, setRows] = useState(initialRows);
+        const [rows, setRows] = useState([]);
         const [openDialog, setOpenDialog] = useState(false)
+
+        useEffect(() => {
+            (async function () {
+                const result = await axios.get("/dentist-for-admin.php")
+                setRows(result.data)
+            })()
+
+        }, [])
+
 
         const handlePageAdd = () => {
             setVisibleAdd(true)
@@ -53,9 +63,9 @@ const AdminPage = () => {
 
         }
         // obsługa wszystkich funkcji dla administratora 1: obsługa dodawania nowego denstysty;
-        const handleOnAdd = async(dentist: IDentist) => {
+        const handleOnAdd = async (dentist: IDentist) => {
             try {
-                await axios.put("/api/dentists", dentist)
+                await axios.post("/dentist-add-admin.php", dentist)
             } catch (e) {
                 console.error("error sending to backend", e)
             }

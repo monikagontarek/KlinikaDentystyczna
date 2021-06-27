@@ -21,14 +21,19 @@ export type GlobalContent = {
     // copy: string
     isUserLogged: boolean,
     currentLoggedUser: IUser | null,
-    setCurrentUser:(c: IUser) => void
+    setCurrentUser:(c: IUser) => void,
+    token: string
+    setToken:(token: string) => void,
+
 }
 
 export const MyGlobalContext = createContext<GlobalContent>({
     // copy: 'Hello World', // set a default value
     setCurrentUser: () => {},
     isUserLogged: false,
-    currentLoggedUser : null
+    currentLoggedUser : null,
+    token: "",
+    setToken: () => {},
 })
 
 export const useGlobalContext = () => useContext(MyGlobalContext)
@@ -38,7 +43,7 @@ const AppProvider = ({children}) => {
     // const [user, setUser] = useState<string>("");
     // const [user, setUser] = useState<IUser>();
     const [user, setUser] = useLocalStorage("logged_user", null);
-
+    const [token, setToken] = useLocalStorage("token", "");
     // const array = useLocalStorage("logged_user", null);
     // const user = array[0]
     // const setUser = array[1]
@@ -47,7 +52,7 @@ const AppProvider = ({children}) => {
     // }
 
     return(
-        <MyGlobalContext.Provider value={{ currentLoggedUser : user, setCurrentUser: setUser, isUserLogged : false }}>
+        <MyGlobalContext.Provider value={{ currentLoggedUser : user, setCurrentUser: setUser, isUserLogged : false, token: token, setToken: setToken }}>
             {children}
         </MyGlobalContext.Provider>
     )
